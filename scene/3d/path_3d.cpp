@@ -393,7 +393,7 @@ void PathFollow3D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_tilt_enabled", "enabled"), &PathFollow3D::set_tilt_enabled);
 	ClassDB::bind_method(D_METHOD("is_tilt_enabled"), &PathFollow3D::is_tilt_enabled);
 
-	ClassDB::bind_method(D_METHOD("update_transform", "immediate"), &PathFollow3D::update_transform);
+	ClassDB::bind_method(D_METHOD("update_transform", "immediate"), &PathFollow3D::update_transform, DEFVAL(false));
 
 	ClassDB::bind_static_method("PathFollow3D", D_METHOD("correct_posture", "transform", "rotation_mode"), &PathFollow3D::correct_posture);
 
