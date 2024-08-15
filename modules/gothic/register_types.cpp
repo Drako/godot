@@ -30,11 +30,11 @@
 
 #include "register_types.h"
 
-#include "vdf_file.h"
+#include "vdf_reader.h"
 
 void initialize_gothic_module(ModuleInitializationLevel p_level) {
 	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
-		GDREGISTER_CLASS(VdfFile);
+		GDREGISTER_CLASS(VdfReader);
 	}
 #ifdef TOOLS_ENABLED
 	if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {

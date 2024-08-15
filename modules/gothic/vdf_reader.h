@@ -1,11 +1,11 @@
 /**************************************************************************/
-/*  config_file.h                                                         */
+/*  vdf_reader.h                                                          */
 /**************************************************************************/
 /*                         This file is part of:                          */
 /*                             GODOT ENGINE                               */
 /*                        https://godotengine.org                         */
 /**************************************************************************/
-/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.md). */
+/* Copyright (c) 2014-present Godot Engine contributors (see AUTHORS.ipmd). */
 /* Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.                  */
 /*                                                                        */
 /* Permission is hereby granted, free of charge, to any person obtaining  */
@@ -28,13 +28,32 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#ifndef VDF_FILE_H
-#define VDF_FILE_H
+#ifndef VDF_READER_H
+#define VDF_READER_H
 
+#include "core/io/file_access.h"
 #include "core/object/ref_counted.h"
 
-class VdfFile : public RefCounted {
-	GDCLASS(VdfFile, RefCounted);
+#include "thirdparty/physfs/physfs.h"
+
+class VdfReader : public RefCounted {
+	GDCLASS(VdfReader, RefCounted);
+
+	Ref<FileAccess> fa;
+	PHYSFS_Io *io = nullptr;
+	void* archive = nullptr;
+
+protected:
+	static void _bind_methods();
+
+public:
+	Error open(const String &p_path);
+	Error close();
+
+	PackedStringArray get_files();
+
+	VdfReader();
+	~VdfReader();
 };
 
-#endif // VDF_FILE_H
+#endif // VDF_READER_H

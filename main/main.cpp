@@ -124,6 +124,10 @@
 #include "modules/mono/editor/bindings_generator.h"
 #endif
 
+#ifdef MODULE_GOTHIC_ENABLED
+#include "thirdparty/physfs/physfs.h"
+#endif
+
 #ifdef MODULE_GDSCRIPT_ENABLED
 #include "modules/gdscript/gdscript.h"
 #if defined(TOOLS_ENABLED) && !defined(GDSCRIPT_NO_LSP)
@@ -904,6 +908,10 @@ int Main::test_entrypoint(int argc, char *argv[], bool &tests_need_run) {
  */
 
 Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_phase) {
+#ifdef MODULE_GOTHIC_ENABLED
+	PHYSFS_init(argv[0]);
+#endif
+
 	Thread::make_main_thread();
 	set_current_thread_safe_for_nodes(true);
 
@@ -4400,4 +4408,8 @@ void Main::cleanup(bool p_force) {
 	OS::get_singleton()->benchmark_dump();
 
 	OS::get_singleton()->finalize_core();
+
+#ifdef MODULE_GOTHIC_ENABLED
+	PHYSFS_deinit();
+#endif
 }
