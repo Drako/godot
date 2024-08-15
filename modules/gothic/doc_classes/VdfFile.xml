@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="VdfFile" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+	<brief_description>
+		A Gothic 1/2 VDF file.
+	</brief_description>
+	<description>
+		This class allows loading Gothic (1 and 2) VDF archives and accessing the contained files.
+	</description>
+	<tutorials>
+	</tutorials>
+</class>

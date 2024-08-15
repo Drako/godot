@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+Import("env")
+Import("env_modules")
+
+env_gothic = env_modules.Clone()
+
+env_gothic.add_source_files(env.modules_sources, "*.cpp")
+if env.editor_build:
+    env_gothic.add_source_files(env.modules_sources, "editor/*.cpp")
+
+physfs_obj = []
+
+physfs_dir = "#thirdparty/physfs/"
+physfs_sources = [
+    "physfs.c",
+    "physfs_archiver_vdf.c",
+    "physfs_platform_posix.c",
+    "physfs_platform_unix.c",
+    "physfs_platform_apple.m",
+    "physfs_platform_windows.c",
+]
+physfs_sources = [physfs_dir + file for file in physfs_sources]
+
+env_gothic.Prepend(CPPPATH=[physfs_dir])
+
+env_physfs = env.Clone()
+env_physfs.disable_warnings()
+env_physfs.add_source_files(physfs_obj, physfs_sources)
+env.modules_sources += physfs_obj
