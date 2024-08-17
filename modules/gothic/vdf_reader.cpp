@@ -164,4 +164,30 @@ void VdfReader::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("open", "path"), &VdfReader::open);
 	ClassDB::bind_method(D_METHOD("close"), &VdfReader::close);
 	ClassDB::bind_method(D_METHOD("get_files"), &VdfReader::get_files);
+	ClassDB::bind_method(D_METHOD("read_file", "path"), &VdfReader::read_file);
+	ClassDB::bind_method(D_METHOD("file_exists", "path"), &VdfReader::file_exists);
+}
+
+PackedByteArray VdfReader::read_file(const String &p_path) {
+	ERR_FAIL_NULL_V(archive, PackedByteArray());
+
+	PHYSFS_Io *file = __PHYSFS_Archiver_VDF.openRead(archive, p_path.utf8().get_data());
+	ERR_FAIL_NULL_V(file, PackedByteArray());
+	PHYSFS_sint64 size = file->length(file);
+
+	PackedByteArray result;
+	result.resize(size);
+	file->read(file, result.ptrw(), size);
+
+	file->destroy(file);
+
+	return PackedByteArray();
+}
+
+bool VdfReader::file_exists(String const &p_path) {
+	ERR_FAIL_NULL_V(archive, false);
+
+	PHYSFS_Stat stat;
+	int result = __PHYSFS_Archiver_VDF.stat(archive, p_path.utf8().get_data(), &stat);
+	return result && stat.filetype == PHYSFS_FILETYPE_REGULAR;
 }

@@ -51,6 +51,8 @@ public:
 	Error close();
 
 	PackedStringArray get_files();
+	PackedByteArray read_file(const String &p_path);
+	bool file_exists(const String &p_path);
 
 	VdfReader();
 	~VdfReader();
